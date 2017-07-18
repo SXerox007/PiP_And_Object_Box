@@ -1,0 +1,88 @@
+buildscript {
+    dependencies {
+        //noinspection GradlePluginVersion
+        classpath 'com.android.tools.build:gradle:2.3.3'
+        classpath 'io.objectbox:objectbox-gradle-plugin:0.9.12'
+    }
+}
+
+apply plugin: 'com.android.application'
+apply plugin: 'io.objectbox'
+
+uploadArchives.enabled = false
+
+android {
+    configurations.all {
+        resolutionStrategy.force 'com.google.code.findbugs:jsr305:1.3.9'
+    }
+    compileSdkVersion 26
+    buildToolsVersion "26.0.0"
+    defaultConfig {
+        applicationId "com.conflux.coinflux.demoobjectbox"
+        minSdkVersion 26
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+//// The sample build uses multiple directories to
+//// keep boilerplate and common code separate from
+//// the main sample code.
+//List<String> dirs = [
+//        'main']     // main sample code; look here for the interesting stuff.
+//
+//AutoFill
+//compileOptions {
+//    sourceCompatibility JavaVersion.VERSION_1_7
+//    targetCompatibility JavaVersion.VERSION_1_7
+//}
+//
+//AutoFill
+//sourceSets {
+//    main {
+//        dirs.each { dir ->
+//            java.srcDirs "src/${dir}/java"
+//            res.srcDirs "src/${dir}/res"
+//        }
+//    }
+//    androidTest.setRoot('tests')
+//    androidTest.java.srcDirs = ['tests/src']
+//}
+
+//repositories {
+//    maven {
+//        url 'https://maven.google.com'
+//        // Alternative URL is 'https://dl.google.com/dl/android/maven2/'
+//    }
+//}
+
+dependencies {
+
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+
+    compile "com.android.support:support-core-utils:26.0.0-beta2"
+    compile "com.android.support:support-v4:26.0.0-beta2"
+    compile "com.android.support:support-v13:26.0.0-beta2"
+    compile "com.android.support:cardview-v7:26.0.0-beta2"
+    compile "com.android.support:appcompat-v7:26.0.0-beta2"
+    compile 'com.android.support:design:26.0.0-beta2'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile group: 'com.google.code.gson', name: 'gson', version: '2.8.1'
+
+    compile 'io.objectbox:objectbox-android:0.9.12'
+    //noinspection GradleDynamicVersion
+    compile 'org.hamcrest:hamcrest-core:1.3'
+    compile 'com.googlecode.objectify:objectify:4.0b1'
+    testCompile 'junit:junit:4.12'
+}
